@@ -13,4 +13,5 @@ After launching the executable, you should now be able to copy and paste each li
 
 # Notes/Documentation
 The system design is simple with a main.cpp database file and a table.
-My program has a simple way of organizing multiple databases by checking the name of each database. Under the parseCommand function within the main.cpp file, you will see a list is created adding the database name whenever it is created. Else, it will fail due to the name already exisiting.
+My program has a simple way of organizing multiple databases by creating directories for them.
+And multiple tables are handled by pushing them into a vector of table classes.
