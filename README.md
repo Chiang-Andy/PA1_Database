@@ -16,3 +16,5 @@ The system design is simple with a main.cpp database file and a table.
 My program has a simple way of organizing multiple databases by creating directories for them.
 And multiple tables are handled by pushing them into a vector of table classes. 
 My program works by creating and saving the name of the database. After such, using a name directory, table is created by finding the name of the data and creating the table under the database name.
+
+It should also be noted that there is an issue with creating a table. While creating the table with the values is done as expected, it may not show in the database file. However, the data is still saved and this is true when doing the SELECT case as the values are shown as expected.
