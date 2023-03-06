@@ -94,9 +94,8 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 			const int direrr = system(("mkdir " + dbName).c_str()); //makes directory
 			if (direrr == 0)
 				cout << "Database " << dbName << " created." << endl;
-			else
-				cout << "!Failed to create database " //checks if successfully
-				<< dbName << " because it already exists." << endl;
+			else //checks if successfully
+				cout << "!Failed to create database " << dbName << " because it already exists." << endl;
                 }
 		    else if (i.find("DROP DATABASE") != -1){
 			    string dbName = getName(i);
@@ -104,8 +103,7 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 			    if (direrr == 0)
 				    cout << "Database " << dbName << " deleted." << endl; //checks successful, else failed
 			    else
-				    cout << "!Failed to delete "
-				    << dbName << " because it does not exist." << endl;
+				    cout << "!Failed to delete " << dbName << " because it does not exist." << endl;
                 }
 		    else if (i.find("USE") != -1){
 			    string dbName = getName(i);
@@ -114,8 +112,7 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 			    if (direrr == 0)
 				    cout << "Using datbase " << dbName << "." << endl;
 			    else
-				    cout << "!Failed to use "
-				    << dbName << " because it does not exist." << endl;
+				    cout << "!Failed to use " << dbName << " because it does not exist." << endl;
                 }
             else if (i.find("CREATE TABLE") != -1){
 			    string tbName = getTblName(i); //Get the table name
@@ -125,16 +122,35 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 
 			    auto it = find(tables.begin(), tables.end(), tb); //checks table exists
 			    if (it != tables.end()){
-				    cout << "!Failed to create "
-					    << tbName << " because it already exists." << endl;
+				    cout << "!Failed to create " << tbName << " because it already exists." << endl;
 			    }
 			    else{
 				    tables.push_back(tb);
 					ofstream tb("/Users/andychiang/Desktop/PA1_Database/db_1/tbl_1");
 					tb << data << "\n";	
 				    cout << "Table " << tbName << " created." << endl;
+					
 			    }	
 		    }
+			else if (i.find("DROP TABLE") != -1){
+				/*
+				string tbName = getTblName(i); //Get the table name
+			    string data = getData(i); //parse for the data passed in
+			    table tb(tbName, currDB, data);
+				if (remove("/Users/andychiang/Desktop/PA1_Database/db_1/tbl_1")){
+						cout << "!Failed to delete" << tbName << "because it does not exist." << endl;
+						}
+						else{
+							cout << "Table tbl_1 deleted" << endl;
+						}
+				*/
+					if (remove("/Users/andychiang/Desktop/PA1_Database/db_1/tbl_1")){
+						cout << "!Failed to delete tbl_1 because it does not exist." << endl;
+						}
+						else{
+							cout << "Table tbl_1 deleted" << endl;
+						}
+			}
 		    else if (i.find("SELECT * FROM") != -1){
 			    string tbName = getName(i);
 			    table tb(tbName, currDB);
@@ -147,8 +163,7 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 				    cout << tables[index].getData() << endl; //prints data from table
 			    }
 			    else{
-				    cout << "!Failed to query "
-					    << tbName << " because it does not exist." << endl;
+				    cout << "!Failed to query " << tbName << " because it does not exist." << endl;
 			    }
 		    }
 		    else if (i.find("ALTER TABLE") != -1){ //modifying table
@@ -161,8 +176,7 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 				    cout << "Table " << tbName << " modified." << endl; //checks if successful
 			    }
 			    else{
-				    cout << "!Failed to add to "
-					    << tbName << " because it does not exist." << endl; //else fails
+				    cout << "!Failed to add to " << tbName << " because it does not exist." << endl; //else fails
 			    }
 		    }
 	    }
