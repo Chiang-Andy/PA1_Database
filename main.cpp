@@ -41,6 +41,7 @@ int main(int argc, char* argv[]){
 		parseInput(input, commands);
 		parseCommands(commands, tables);
         } 
+	cout << "all done" << endl;
 	return 0;
     }
 
@@ -199,6 +200,6 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 			    }
 		    }
 	    }
-
+	
 	commands.clear();
 }
