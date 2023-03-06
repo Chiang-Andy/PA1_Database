@@ -185,6 +185,14 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 			    if (it != tables.end()){
 				    tables[index].add(i);
 				    cout << "Table " << tbName << " modified." << endl; //checks if successful
+
+					string folder_name = "db_1";
+        			string file_path = folder_name + "/" + tbName;
+        			ofstream myfile(file_path.c_str());
+        			if (myfile.is_open()){
+           			myfile << tables[index].getData() << endl; // update file with new data
+           			myfile.close();
+        			}
 			    }
 			    else{
 				    cout << "!Failed to add to " << tbName << " because it does not exist." << endl; //else fails
