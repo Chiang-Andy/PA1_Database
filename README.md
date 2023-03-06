@@ -17,7 +17,6 @@ My program has a simple way of organizing multiple databases by creating directo
 
 And multiple tables are handled by pushing them into a vector of table classes. 
 My program works by using a auto command control is used by looking for specific text case.
-
 Directories is created and saved by storing the name of the database. Name of any database created is saved in the program and can be accessed for future uses.
 After such, using a name directory, table is created by finding the name of the data and creating the table under the database filename. Data is parsed to pass in for use. And removing a table is done by using a simple remove function.
 
