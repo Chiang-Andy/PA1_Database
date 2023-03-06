@@ -14,6 +14,8 @@ Project Assignment 1
 #include <cstdlib>
 #include <cstdio>
 
+#include <sys/stat.h> 
+
 #include "table.h"
 
 using namespace std;
@@ -118,6 +120,9 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 			    string tbName = getTblName(i); //Get the table name
 			    string data = getData(i); //parse for the data passed in
 			    table tb(tbName, currDB, data);
+				string dbName = getName(i);
+				string folder_name = "db_1";
+				int result = mkdir(folder_name.c_str());
 
 
 			    auto it = find(tables.begin(), tables.end(), tb); //checks table exists
@@ -125,31 +130,37 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 				    cout << "!Failed to create " << tbName << " because it already exists." << endl;
 			    }
 			    else{
+					string file_path = folder_name + "/" + tbName;
+					ofstream myfile(file_path.c_str());
+					if (myfile.is_open()){
+						myfile << data << endl;
+						tables.push_back(tb);
+						myfile.close();
+					}
+				
+					/*
 				    tables.push_back(tb);
 					ofstream tb("/Users/andychiang/Desktop/PA1_Database/db_1/tbl_1");
 					tb << data << "\n";	
 				    cout << "Table " << tbName << " created." << endl;
-					
+					*/
 			    }	
 		    }
 			else if (i.find("DROP TABLE") != -1){
-				/*
-				string tbName = getTblName(i); //Get the table name
-			    string data = getData(i); //parse for the data passed in
-			    table tb(tbName, currDB, data);
-				if (remove("/Users/andychiang/Desktop/PA1_Database/db_1/tbl_1")){
-						cout << "!Failed to delete" << tbName << "because it does not exist." << endl;
-						}
-						else{
-							cout << "Table tbl_1 deleted" << endl;
-						}
-				*/
-					if (remove("/Users/andychiang/Desktop/PA1_Database/db_1/tbl_1")){
-						cout << "!Failed to delete tbl_1 because it does not exist." << endl;
-						}
-						else{
-							cout << "Table tbl_1 deleted" << endl;
-						}
+    			string tbName = getTblName(i);
+    			table tb(tbName, currDB, "");
+    			string folder_name = "db_1";
+    			string file_path = folder_name + "/" + tbName;
+
+    			auto it = find(tables.begin(), tables.end(), tb);
+    			if (it == tables.end()) {
+       				cout << "!Failed to drop " << tbName << " because it does not exist." << endl;
+    			}
+    			else {
+        			tables.erase(it);
+        			remove(file_path.c_str());
+        			cout << "Table " << tbName << " dropped." << endl;
+    			}
 			}
 		    else if (i.find("SELECT * FROM") != -1){
 			    string tbName = getName(i);
@@ -183,4 +194,3 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 
 	commands.clear();
 }
-
