@@ -12,6 +12,7 @@ Project Assignment 1
 #include <sstream>
 #include <algorithm>
 #include <cstdlib>
+#include <cstdio>
 
 #include "table.h"
 
@@ -129,6 +130,8 @@ void parseCommands(vector<string>& commands, vector<table>& tables){
 			    }
 			    else{
 				    tables.push_back(tb);
+					ofstream tb("/Users/andychiang/Desktop/PA1_Database/db_1/tbl_1");
+					tb << data << "\n";	
 				    cout << "Table " << tbName << " created." << endl;
 			    }	
 		    }
